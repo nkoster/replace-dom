@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="shortcut icon" href="data:image/x-icon;," type="image/x-icon">
+    <title>DOM fetch test</title>
+</head>
+<body>
+    <h1>This is The Original Content</h1>
+    <script>
+        console.log('The DOM')
+        setTimeout(async _ => {
+            console.log('Clear DOM')
+            const copy = document.documentElement.cloneNode(true)
+            document.removeChild(document.documentElement)
+            let html
+            await fetch('newpage.html')
+                .then(response => response.text())
+                .then(data => html = data)
+            setTimeout(_ => {
+                console.log('Load new DOM')
+                document.write(html)
+                setTimeout(_ => {
+                    console.log('Restore original DOM')
+                    document.removeChild(document.documentElement)
+                    document.appendChild(copy)
+                }, 10000)
+            }, 2000)
+        }, 2000)
+    </script>
+</body>
+</html>
