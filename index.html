@@ -12,7 +12,7 @@
         console.log('The DOM')
         setTimeout(async _ => {
             console.log('Clear DOM')
-            const copy = document.documentElement.cloneNode(true)
+            const original = document.documentElement.cloneNode(true)
             document.removeChild(document.documentElement)
             let html
             await fetch('newpage.html')
@@ -24,7 +24,7 @@
                 setTimeout(_ => {
                     console.log('Restore original DOM')
                     document.removeChild(document.documentElement)
-                    document.appendChild(copy)
+                    document.appendChild(original)
                 }, 10000)
             }, 2000)
         }, 2000)
