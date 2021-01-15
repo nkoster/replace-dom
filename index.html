@@ -4,26 +4,36 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="shortcut icon" href="data:image/x-icon;," type="image/x-icon">
+    <style>
+        .The {
+            color: cornflowerblue;
+        }
+    </style>
     <title>DOM fetch test</title>
 </head>
 <body>
-    <h1>This is The Original Content</h1>
+    <h1>This is <span class="The">The</span> Original Content</h1>
     <script>
         console.log('The DOM')
         setTimeout(async _ => {
             console.log('Clear DOM')
+            // Before clearing, make a clone of the original root node.
             const original = document.documentElement.cloneNode(true)
+            // Clear the DOM by removing the root node.
             document.removeChild(document.documentElement)
-            let html
-            await fetch('newpage.html')
+            let html // This will hold the new root node.
+            await fetch('newpage.html') // This is basically the raw bundle.
                 .then(response => response.text())
                 .then(data => html = data)
             setTimeout(_ => {
                 console.log('Load new DOM')
+                // Fill the empty DOM with the new root node.
                 document.write(html)
                 setTimeout(_ => {
                     console.log('Restore original DOM')
+                    // Clear the DOM by removing the root node.
                     document.removeChild(document.documentElement)
+                    // Append the original cloned DOM to the empty DOM.
                     document.appendChild(original)
                 }, 10000)
             }, 2000)
