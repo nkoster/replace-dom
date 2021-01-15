@@ -19,21 +19,22 @@
             console.log('Clear DOM')
             // Before clearing, make a clone of the original root node.
             const original = document.documentElement.cloneNode(true)
-            // Clear the DOM by removing the root node.
+            // Clear the DOM by removing the "root node".
             document.removeChild(document.documentElement)
-            let html // This will hold the new root node.
-            await fetch('newpage.html') // This is basically the raw bundle.
+            let html // This will hold the new "root node".
+            await fetch('newpage.html') // This is basically the "raw bundle".
                 .then(response => response.text())
                 .then(data => html = data)
             setTimeout(_ => {
                 console.log('Load new DOM')
-                // Fill the empty DOM with the new root node.
+                // Fill the empty DOM with the new "root node".
                 document.write(html)
+                // Now the new page is in the browser tab for 10 secs.
                 setTimeout(_ => {
                     console.log('Restore original DOM')
-                    // Clear the DOM by removing the root node.
+                    // Clear the DOM by removing the "root node".
                     document.removeChild(document.documentElement)
-                    // Append the original cloned DOM to the empty DOM.
+                    // Append the original "cloned DOM" to the empty DOM.
                     document.appendChild(original)
                 }, 10000)
             }, 2000)
